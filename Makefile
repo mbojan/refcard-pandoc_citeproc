@@ -1,5 +1,5 @@
 file=README
-ext=md html pdf docx docx.pdf
+ext=md html pdf docx docx.pdf html.pdf html.png
 
 render=Rscript -e 'rmarkdown::render("$<", output_format="$(outf)")'
 
@@ -26,5 +26,11 @@ default: $(addprefix $(file).,$(ext))
 
 %.docx.pdf: %.docx
 	libreoffice --convert-to pdf $< --headless
+
+%.html.pdf: %.html
+	wkhtmltopdf $< $@
+
+%.html.png: %.html
+	wkhtmltoimage $< $@
 
 .PHONY: default
