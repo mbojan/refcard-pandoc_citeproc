@@ -1,6 +1,8 @@
 ---
 title: "Refcard pandoc citeproc"
-output: github_document
+output: 
+  github_document:
+    toc: true
 link-citations: true
 bibliography: refs.bib
 editor_options: 
@@ -29,7 +31,12 @@ knit_engines$set(
 )
 ```
 
+# Worthwhile metadata options
 
+- `link-citations: [true|false]` -- convert year to a hyperlink in reference list
+
+
+# Examples
 
 ```{markdown}
 Blah blah [@wf;@coleman].
@@ -51,31 +58,74 @@ see [@wf, book 1, chap. 1, pp. 33-35]
 
 ```{markdown}
 see @wf [book 1]
+```
+
+
+```{markdown}
 see @wf [chapter 1]
+```
+
+```{markdown}
 see @wf [column 1]
+```
+
+```{markdown}
 see @wf [figure 1]
+```
+
+```{markdown}
 see @wf [folio 1]
+```
+
+```{markdown}
 see @wf [number 1]
+```
+
+```{markdown}
 see @wf [line 1]
+```
+
+```{markdown}
 see @wf [note 1]
+```
+
+```{markdown}
 see @wf [opus 1]
+```
+
+```{markdown}
 see @wf [paragraph 1]
+```
+
+```{markdown}
 see @wf [part 1]
+```
+
+```{markdown}
 see @wf [section 1]
+```
+
+```{markdown}
 see @wf [sub verbo 1]
+```
+
+```{markdown}
 see @wf [verse 1]
+```
+
+```{markdown}
 see @wf [volume 1]
 ```
 
 
-and
+## Protect locators with curly braces
 
 ```{markdown}
 [@wf{ii, A, D-Z}, with suffix]
 ```
 
 ```{markdown}
-[@wf, {chapter. iv, vi-xi} with suffix here]
+[@wf, {chapter iv, vi-xi} with suffix here]
 ```
 
 
@@ -89,6 +139,21 @@ Wasserman says blah again [-@wf]
 ```{r}
 cat(readLines("refs.bib"), sep="\n")
 ```
+
+
+# Appendix B: Software
+
+```{r}
+rmarkdown::pandoc_version()
+system2("pandoc-citeproc", "--version", stdout=TRUE)
+```
+
+
+
+# Forced references 
+
+::: {#refs}
+:::
 
 
 # References {-}

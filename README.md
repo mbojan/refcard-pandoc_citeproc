@@ -1,70 +1,158 @@
 Refcard pandoc citeproc
 ================
 
+  - [Worthwhile metadata options](#worthwhile-metadata-options)
+  - [Examples](#examples)
+  - [Locator terms](#locator-terms)
+      - [Protect locators with curly
+        braces](#protect-locators-with-curly-braces)
+  - [Appendix A: BibTeX file](#appendix-a-bibtex-file)
+  - [Appendix B: Software](#appendix-b-software)
+  - [Forced references](#forced-references)
+  - [References](#references)
+
+# Worthwhile metadata options
+
+  - `link-citations: [true|false]` – convert year to a hyperlink in
+    reference list
+
+# Examples
+
 ``` markdown
 Blah blah [@wf;@coleman].
 ```
 
-Blah blah (Wasserman and Faust [1994](#ref-wf); Coleman [1990](#ref-coleman)).
+Blah blah (Wasserman and Faust [1994](#ref-wf); Coleman
+[1990](#ref-coleman)).
 
 ``` markdown
 Blah blah [see @wf, pp. 33-35; also @coleman, chap. 1].
 ```
 
-Blah blah (see Wasserman and Faust [1994](#ref-wf), 33–35; also Coleman [1990](#ref-coleman), chap. 1).
+Blah blah (see Wasserman and Faust [1994](#ref-wf), 33–35; also Coleman
+[1990](#ref-coleman), chap. 1).
 
-Locator terms
-=============
+# Locator terms
 
 ``` markdown
 see [@wf, book 1, chap. 1, pp. 33-35]
 ```
 
-see (Wasserman and Faust [1994](#ref-wf), bk. 1, chap. 1, pp. 33-35)
+see (Wasserman and Faust [1994](#ref-wf), bk. 1, chap. 1, pp. 33-35)
 
 ``` markdown
 see @wf [book 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), bk. 1)
+
+``` markdown
 see @wf [chapter 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), chap. 1)
+
+``` markdown
 see @wf [column 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), col. 1)
+
+``` markdown
 see @wf [figure 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), fig. 1)
+
+``` markdown
 see @wf [folio 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), fol. 1)
+
+``` markdown
 see @wf [number 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), no. 1)
+
+``` markdown
 see @wf [line 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), l. 1)
+
+``` markdown
 see @wf [note 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), n. 1)
+
+``` markdown
 see @wf [opus 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), op. 1)
+
+``` markdown
 see @wf [paragraph 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), para. 1)
+
+``` markdown
 see @wf [part 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), pt. 1)
+
+``` markdown
 see @wf [section 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), sec. 1)
+
+``` markdown
 see @wf [sub verbo 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), s.v. 1)
+
+``` markdown
 see @wf [verse 1]
+```
+
+see Wasserman and Faust ([1994](#ref-wf), v. 1)
+
+``` markdown
 see @wf [volume 1]
 ```
 
-see Wasserman and Faust ([1994](#ref-wf), bk. 1) see Wasserman and Faust ([1994](#ref-wf), chap. 1) see Wasserman and Faust ([1994](#ref-wf), col. 1) see Wasserman and Faust ([1994](#ref-wf), fig. 1) see Wasserman and Faust ([1994](#ref-wf), fol. 1) see Wasserman and Faust ([1994](#ref-wf), no. 1) see Wasserman and Faust ([1994](#ref-wf), l. 1) see Wasserman and Faust ([1994](#ref-wf), n. 1) see Wasserman and Faust ([1994](#ref-wf), op. 1) see Wasserman and Faust ([1994](#ref-wf), para. 1) see Wasserman and Faust ([1994](#ref-wf), pt. 1) see Wasserman and Faust ([1994](#ref-wf), sec. 1) see Wasserman and Faust ([1994](#ref-wf), s.v. 1) see Wasserman and Faust ([1994](#ref-wf), v. 1) see Wasserman and Faust ([1994](#ref-wf), vol. 1)
+see Wasserman and Faust ([1994](#ref-wf), vol. 1)
 
-and
+## Protect locators with curly braces
 
 ``` markdown
 [@wf{ii, A, D-Z}, with suffix]
 ```
 
-(Wasserman and Faust [1994](#ref-wf){ii, A, D-Z}, with suffix)
+(Wasserman and Faust [1994](#ref-wf), ii, A, D–Z, with suffix)
 
 ``` markdown
-[@wf, {chapter. iv, vi-xi} with suffix here]
+[@wf, {chapter iv, vi-xi} with suffix here]
 ```
 
-(Wasserman and Faust [1994](#ref-wf), {chapter. iv, vi-xi} with suffix here)
+(Wasserman and Faust [1994](#ref-wf), chaps. iv, vi–xi with suffix here)
 
 ``` markdown
 @wf [chapter 33] or 
 Wasserman says blah again [-@wf]
 ```
 
-Wasserman and Faust ([1994](#ref-wf), chap. 33) or Wasserman says blah again ([1994](#ref-wf))
+Wasserman and Faust ([1994](#ref-wf), chap. 33) or Wasserman says blah
+again ([1994](#ref-wf))
 
-Appendix A: BibTeX file
-=======================
+# Appendix A: BibTeX file
 
 ``` r
 cat(readLines("refs.bib"), sep="\n")
@@ -85,9 +173,40 @@ cat(readLines("refs.bib"), sep="\n")
     ##   author = {Coleman, James Samuel}
     ## }
 
-References
-==========
+# Appendix B: Software
 
-Coleman, James Samuel. 1990. *Foundations of Social Science Theory*. Belknap Press.
+``` r
+rmarkdown::pandoc_version()
+```
 
-Wasserman, S., and K. Faust. 1994. *Social Network Analysis*. Cambridge University Press.
+    ## [1] '2.6'
+
+``` r
+system2("pandoc-citeproc", "--version", stdout=TRUE)
+```
+
+    ## [1] "pandoc-citeproc 0.15.0.1"
+
+# Forced references
+
+<div id="refs">
+
+dupas
+
+<div id="ref-coleman">
+
+Coleman, James Samuel. 1990. *Foundations of Social Science Theory*.
+Belknap Press.
+
+</div>
+
+<div id="ref-wf">
+
+Wasserman, S., and K. Faust. 1994. *Social Network Analysis*. Cambridge
+University Press.
+
+</div>
+
+</div>
+
+# References
