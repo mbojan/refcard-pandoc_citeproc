@@ -191,8 +191,6 @@ system2("pandoc-citeproc", "--version", stdout=TRUE)
 
 <div id="refs">
 
-dupas
-
 <div id="ref-coleman">
 
 Coleman, James Samuel. 1990. *Foundations of Social Science Theory*.
