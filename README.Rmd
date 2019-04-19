@@ -1,0 +1,94 @@
+---
+title: "Refcard pandoc citeproc"
+output: github_document
+link-citations: true
+bibliography: refs.bib
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+
+knitr::opts_chunk$set(
+  echo = TRUE
+  )
+
+
+# Markdown pseudo-engine
+knit_engines$set(
+  markdown = function(options) {
+    opt <- options
+    opt$results <- "asis"
+    engine_output(
+      options = opt, 
+      code = options$code,
+      out = paste(options$code, collapse="\n")
+      )
+  }
+)
+```
+
+
+
+```{markdown}
+Blah blah [@wf;@coleman].
+```
+
+
+```{markdown}
+Blah blah [see @wf, pp. 33-35; also @coleman, chap. 1].
+```
+
+
+
+
+# Locator terms
+
+```{markdown}
+see [@wf, book 1, chap. 1, pp. 33-35]
+```
+
+```{markdown}
+see @wf [book 1]
+see @wf [chapter 1]
+see @wf [column 1]
+see @wf [figure 1]
+see @wf [folio 1]
+see @wf [number 1]
+see @wf [line 1]
+see @wf [note 1]
+see @wf [opus 1]
+see @wf [paragraph 1]
+see @wf [part 1]
+see @wf [section 1]
+see @wf [sub verbo 1]
+see @wf [verse 1]
+see @wf [volume 1]
+```
+
+
+and
+
+```{markdown}
+[@wf{ii, A, D-Z}, with suffix]
+```
+
+```{markdown}
+[@wf, {chapter. iv, vi-xi} with suffix here]
+```
+
+
+```{markdown}
+@wf [chapter 33] or 
+Wasserman says blah again [-@wf]
+```
+
+# Appendix A: BibTeX file {-}
+
+```{r}
+cat(readLines("refs.bib"), sep="\n")
+```
+
+
+# References {-}
