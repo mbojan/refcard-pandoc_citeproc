@@ -3,6 +3,7 @@ title: "Refcard pandoc citeproc"
 output: 
   github_document:
     toc: true
+    html_preview: false
 link-citations: true
 bibliography: refs.bib
 editor_options: 
