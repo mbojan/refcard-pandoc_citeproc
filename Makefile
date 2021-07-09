@@ -3,9 +3,9 @@ ext=md html pdf docx docx.pdf html.pdf html.png
 
 render=Rscript -e 'rmarkdown::render("$<", output_format="$(outf)")'
 
+default: README.md
 
-
-default: $(addprefix $(file).,$(ext))
+all: $(addprefix $(file).,$(ext))
 
 %.md: outf=github_document
 %.html: outf=html_document

@@ -3,7 +3,11 @@ title: "Refcard pandoc citeproc"
 output: 
   github_document:
     toc: true
+    number_sections: true
     html_preview: false
+  html_document:
+    toc: true
+    number_sections: true
 link-citations: true
 bibliography: refs.bib
 editor_options: 
@@ -12,11 +16,11 @@ editor_options:
 
 ```{r setup, include=FALSE}
 library(knitr)
+library(xml2)
 
 knitr::opts_chunk$set(
   echo = TRUE
-  )
-
+)
 
 # Markdown pseudo-engine
 knit_engines$set(
@@ -32,26 +36,77 @@ knit_engines$set(
 )
 ```
 
-# Worthwhile metadata options
-
-- `link-citations: [true|false]` -- convert year to a hyperlink in reference list
-
-
-# Examples
+This is a reminder (to me) how to use pandoc locator terms in (R)Markdown documents. Things like:
 
 ```{markdown}
 Blah blah [@wf;@coleman].
 ```
 
+or
 
 ```{markdown}
 Blah blah [see @wf, pp. 33-35; also @coleman, chap. 1].
 ```
 
+The terms themselves are locale-specific. They are defined in [CSL locale files](https://github.com/citation-style-language/locales) [@pandoc, chapter "Citation syntax"].
 
 
+
+# General things
+
+Worthwhile metadata options
+
+- `link-citations: [true|false]` -- create hyperlinks leading to items in the reference list
+
+Force reference list to appear somewhere else than the end of the document by placing
+
+```
+::: {#refs}
+:::
+```
 
 # Locator terms
+
+```{r terms, include=FALSE, eval=FALSE}
+# Take term list from a Haskel source file
+
+# Fetch the file if not present
+fname <- "Locator.hs"
+if(!file.exists(fname)) {
+  download.file(
+    "https://raw.githubusercontent.com/jgm/pandoc/master/src/Text/Pandoc/Citeproc/Locator.hs",
+    dest = fname
+  )
+}
+
+# Extract the terms
+terms <- tail(readLines(fname), 50) |>
+  paste(collapse="") |>
+  trimws() |>
+  (function(x) gsub(" +", "", x))() |>
+  stringi::stri_extract_first(regex = "(?<=locatorTerms=\\[).*(?=\\])") |>
+  (function(x) gsub('"', "", x))() |>
+  (function(x) strsplit(x, ",")[[1]])()
+
+# Fetch locale files if not present
+loclist <- c("pl-PL", "en-US")
+fnames <- paste0("locales-", loclist, ".xml")
+for(i in seq(along=loclist)) {
+  if(!file.exists(fnames[i]))
+  download.file(
+    paste0("https://raw.githubusercontent.com/citation-style-language/locales/master/", fnames[i]),
+    destfile = fnames[i]
+  )
+}
+
+# Extract the terms for the different locales
+xml <- read_xml(fnames[1])
+xml_find_all(xml, ".//d1:term[@name = 'book']/following::d1:term/preceding::d1:term[not(@form)]")
+```
+
+
+
+# Examples (English)
 
 ```{markdown}
 see [@wf, book 1, chap. 1, pp. 33-35]
@@ -135,6 +190,11 @@ see @wf [volume 1]
 Wasserman says blah again [-@wf]
 ```
 
+
+
+
+
+
 # Appendix A: BibTeX file {-}
 
 ```{r}
@@ -152,6 +212,8 @@ system2("pandoc-citeproc", "--version", stdout=TRUE)
 
 
 # Forced references 
+
+The reference list is force-placed here instead of the end of the document:
 
 ::: {#refs}
 :::
